@@ -8,7 +8,7 @@ A bot for showing STS 2 cards.
 ### Usage
 &lt;&lt;card name&gt;&gt;
 
-If you want to host this bot locally, you will need to get your own token from Discord and images, though I will do my best to keep as much uptime on the bot as I can locally.
+If you want to host this bot locally, you will need to get your own token from Discord and images, though I will do my best to keep as much uptime on the bot as I can.
 
 ### Version Notes
 
