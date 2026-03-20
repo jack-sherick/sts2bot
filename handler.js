@@ -1,6 +1,6 @@
 // probably a gross way to actually maintain a real app, and maybe if I gaf I'll make a real pipeline
 // but for now we're taking the wiki and saving everything file, then parsing those files to figure out
-// cards/relics/potions/events and put them in jsons for our bot to use
+// cards/relics/potions/events, find the name, make that the key, and point it to the appropiate file in a json
 
 const fs = require("fs");
 const path = require("path");

@@ -4,6 +4,8 @@ v 0.1.1
 
 A bot for showing STS 2 cards.
 
+[![Add to Discord](https://img.shields.io/badge/Add%20to%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1484600061282353283&permissions=0&integration_type=0&scope=bot+applications.commands)
+
 **Critical Changes**
  - A real pipeline
  - Better substring search
