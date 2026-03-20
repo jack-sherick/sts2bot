@@ -23,7 +23,7 @@ client.on(Events.MessageCreate, async (msg) => {
 	try {
 		if (msg.author.bot) return;
 
-		const matches = [...msg.content.matchAll(/<<(.+?)>>/g)];
+		const matches = [...msg.content.matchAll(/<<(.+?)>>/g)]; // looks for <<card name>>
 
 		if (!matches.length) return;
 
