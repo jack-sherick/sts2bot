@@ -1,6 +1,6 @@
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
-const { token } = require('./config.json');
+const { token } = require('./config.json'); // idk why envs don't like me right now
 
 const path = require("path");
 const cards = require("./cards.json");
