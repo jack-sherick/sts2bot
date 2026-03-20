@@ -13,4 +13,4 @@ A bot for showing STS 2 cards. &lt;&lt;card name&gt;&gt;
  - Powers, Relics, and Potions
 
 ### License
-[MIT license](http://choosealicense.com/licenses/mit/).
+[MIT license](http://choosealicense.com/licenses/mit/)
