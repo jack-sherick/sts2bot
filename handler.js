@@ -5,18 +5,23 @@
 const fs = require("fs");
 const path = require("path");
 
-const IMAGE_DIR = "./images";
-const OUTPUT_FILE = "cards.json";
+const CARD_DIR = "./cards";
+const CARD_OUTPUT_FILE = "./lib/cards.json";
+
+const RELIC_DIR = "./relics";
+const RELIC_OUTPUT_FILE = "./lib/relics.json";
 
 const cards = {};
+const relics = {};
 
-const files = fs.readdirSync(IMAGE_DIR).sort();
+const card_files = fs.readdirSync(CARD_DIR).sort();
+const relic_files = fs.readdirSync(RELIC_DIR).sort();
 
-for (const filename of files) {
-  const ext = path.extname(filename).toLowerCase();
+for (const f of card_files) {
+  const ext = path.extname(f).toLowerCase();
   if (![".png", ".jpg", ".webp"].includes(ext)) continue;
 
-  let key = filename;
+  let key = f;
 
   key = key.replace(/^\d+px-/, "");                           // remove "150px-"
   key = key.replace(/^StS2_[^-]+-/, "");                      // remove "StS2_xxxx-"
@@ -25,8 +30,28 @@ for (const filename of files) {
 
   console.log(key);
 
-  cards[key.toLowerCase()] = filename;
+  cards[key.toLowerCase()] = f;
 }
 
-fs.writeFileSync(OUTPUT_FILE, JSON.stringify(cards, null, 2));
+fs.writeFileSync(CARD_OUTPUT_FILE, JSON.stringify(cards, null, 2));
 console.log(`Generated ${Object.keys(cards).length} entries.`);
+
+// I will consolidate things into one loop at some point
+
+for (const f of relic_files) {
+  const ext = path.extname(f).toLowerCase();
+
+  if (![".png", ".jpg", ".webp"].includes(ext)) continue;
+
+  let key = f;
+
+  key = key.replace(/^\d+px-/, "");                          
+  key = key.replace(/^StS2_/, "");                     
+  key = key.split(/(?=[A-Z])/).join().replaceAll(",", " ");   
+  key = path.basename(key, ext);
+
+  relics[key.toLowerCase()] = f;
+}
+
+fs.writeFileSync(RELIC_OUTPUT_FILE, JSON.stringify(relics, null, 2));
+console.log(`Generated ${Object.keys(relics).length} enteries.`);

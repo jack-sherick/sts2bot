@@ -1,6 +1,8 @@
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
-const { token } = require('./config.json'); // idk why envs don't like me right now
+
+require('dotenv').config();
+const token = process.env.WORKING_BRANCH_TOKEN;
 
 const path = require("path");
 const cards = require("./cards.json");
@@ -40,7 +42,7 @@ client.on(Events.MessageCreate, async (msg) => {
 				continue;
 			}
 
-			const attachment = new AttachmentBuilder(path.join(__dirname, "images", card));
+			const attachment = new AttachmentBuilder(path.join(__dirname, "cards", card));
 			await msg.channel.send({ files: [attachment] });
 		}
 		

@@ -1,4 +1,9 @@
 node_modules
-images
+
+### IMAGES
+cards
+relics
+
+### TOKENS
 .env
 config.json

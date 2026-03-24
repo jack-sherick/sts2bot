@@ -5,7 +5,11 @@ module.exports = [
 	{
 		languageOptions: {
 			ecmaVersion: 'latest',
+			globals: require('globals').node,
 		},
-		rules: {},
+		rules: {
+			'no-unused-vars': 'warn',
+			'no-undef': 'error',
+		},
 	},
 ];
