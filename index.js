@@ -5,7 +5,8 @@ require('dotenv').config();
 const token = process.env.WORKING_BRANCH_TOKEN;
 
 const path = require("path");
-const cards = require("./cards.json");
+const cards = require("./lib/cards.json");
+const relics = require("./lib/relics.json");
 
 // Create a new client instance
 const client = new Client({ intents: [
