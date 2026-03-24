@@ -2,11 +2,12 @@
 const { Client, Events, GatewayIntentBits, AttachmentBuilder } = require('discord.js');
 
 require('dotenv').config();
-const token = process.env.DISCORD_TOKEN;
+const token = process.env.WORKING_BRANCH_TOKEN;
 
 const path = require("path");
 const cards = require("./lib/cards.json");
 const relics = require("./lib/relics.json");
+const relic_desc = require("./lib/relic_desc.json");
 
 // Create a new client instance
 const client = new Client({ intents: [
@@ -33,18 +34,28 @@ client.on(Events.MessageCreate, async (msg) => {
 		for (const i of matches) {
 			const query = i[1].trim().toLowerCase().replace("+", " plus");
 
-			const card = findCard(query);
+			const result = match(query);
 
-			if (!card) {
-				await msg.channel.send(`No card found matching **${query.split(" ").map(t => {
+			if (!result) {
+				await msg.channel.send(`No query found matching **${query.split(" ").map(t => {
 					return t.charAt(0).toUpperCase() + t.slice(1);
 				}).join(" ")}**.`);
 
 				continue;
 			}
 
-			const attachment = new AttachmentBuilder(path.join(__dirname, "cards", card));
+			console.log(result);
+
+			const attachment = new AttachmentBuilder(path.join(__dirname, result.folder, result.file));
 			await msg.channel.send({ files: [attachment] });
+
+			if (result.folder === "relics") {
+				for (const j of relic_desc) {
+					if (j.name.toLowerCase() == query) {
+						await msg.channel.send(formatDescription(j.description));
+					}
+				}
+			}
 		}
 		
 	} catch (err) {
@@ -52,12 +63,32 @@ client.on(Events.MessageCreate, async (msg) => {
 	}
 })
 
-function findCard(query) {
-	if (cards[query]) return cards[query];
 
-	const key = Object.keys(cards).find(k => k.includes(query));
+function match(query) {
+	if (cards[query]) return { file: cards[query], folder: "cards" };
+	if (relics[query]) return { file: relics[query], folder: "relics" };
 
-	return key ? cards[key] : null;
+	const cardKey = Object.keys(cards).find(k => k.includes(query));
+	if (cardKey) return { file: cards[cardKey], folder: "cards" };
+
+	const relicKey = Object.keys(relics).find(k => k.includes(query));
+	if (relicKey) return { file: relics[relicKey], folder: "relics" };
+
+	return null;
+}
+
+function formatDescription(desc) { // lowk didn't realize discord had it in itself
+	const colorMap = {
+		red:   '\u001b[31m',
+		green: '\u001b[32m',
+		gold:  '\u001b[33m',
+		blue:  '\u001b[34m',
+	};
+	const reset = '\u001b[0m';
+	const formatted = desc.replace(/\[(\w+)\](.*?)\[\/\1\]/g, (_, color, text) => {
+		return colorMap[color] ? `${colorMap[color]}${text}${reset}` : text;
+	});
+	return `\`\`\`ansi\n${formatted}\n\`\`\``;
 }
 
 // Log in to Discord with your client's token

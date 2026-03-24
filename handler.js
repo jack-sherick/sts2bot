@@ -2,6 +2,8 @@
 // but for now we're taking the wiki and saving every file, then parsing those files to figure out
 // cards/relics/potions/events, find the name, make that the key, and point it to the appropiate file in a json
 
+// relic descriptions I got from the spire codex. they don't have as annoying of formatting to code around as the wiki
+
 const fs = require("fs");
 const path = require("path");
 
@@ -28,7 +30,7 @@ for (const f of card_files) {
   key = key.split(/(?=[A-Z])/).join().replaceAll(",", " ");   // add spaces between multi-word names
   key = path.basename(key, ext);                              // remove extension
 
-  console.log(key);
+  // console.log(key);
 
   cards[key.toLowerCase()] = f;
 }
