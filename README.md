@@ -1,5 +1,5 @@
 ### STS 2 Bot
-*v 0.1.1*
+*v 0.1.2*
 
 A bot for showing STS 2 cards.
 
@@ -12,12 +12,12 @@ If you want to host this bot locally, you will need to get your own token from D
 
 ### Version Notes
 
-*yeah man I mean it works*
+0.1.2: Relics!
 
 ### TO-DO
  - A real pipeline
  - Better substring search
- - Powers, Relics, and Potions
+ - Potions
 
 ### License
 [MIT license](http://choosealicense.com/licenses/mit/)
