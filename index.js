@@ -84,10 +84,14 @@ function formatDescription(desc) { // lowk didn't realize discord had it in itse
 		gold:  '\u001b[33m',
 		blue:  '\u001b[34m',
 	};
+
 	const reset = '\u001b[0m';
-	const formatted = desc.replace(/\[(\w+)\](.*?)\[\/\1\]/g, (_, color, text) => {
-		return colorMap[color] ? `${colorMap[color]}${text}${reset}` : text;
-	});
+	const formatted = desc
+		.replace(/\[energy:(\d+)\]/g, (_, num) => `${colorMap.gold}${'\u26A1'.repeat(Number(num))}${reset}`)
+		.replace(/\[(\w+)\](.*?)\[\/\1\]/g, (_, color, text) => {
+			return colorMap[color] ? `${colorMap[color]}${text}${reset}` : text;
+		});
+
 	return `\`\`\`ansi\n${formatted}\n\`\`\``;
 }
 
